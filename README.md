@@ -8,11 +8,11 @@ Thank you
 
 Please fork. Pull requests are very welcome.
 
-Requires: Python2.x, Android Debug Bridge, Usb cable, Debian ( Ubuntu should work but must add .conf somewhere in a2createsite!), Android, Tetherbot (http://graha.ms/androidproxy/Tetherbot.apk)
+Requires: Python2.x, Android Debug Bridge, Usb cable, Debian ( Ubuntu should work ), Android, Tetherbot (http://graha.ms/androidproxy/Tetherbot.apk)
 
 Includes: One click dependency apt-get install
 
-Works on: Debian Wheezy & Rooted Sony Xperia Ion LT28at 4G LTE
+Works on: Debian Wheezy & Rooted Sony Xperia Ion LT28at
 
 
 Usage: 
