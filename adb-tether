@@ -39,7 +39,7 @@ def main():
              else:
                   print "Command terminated with error"
              raw_input("Press enter")
-             #system("reset") 
+
         def launch_cmd(cmd_string):
              system("reset")
              a = system( cmd_string )
@@ -50,19 +50,16 @@ def main():
              else:
                   print "Command terminated with error"
              raw_input("Press enter")
-             #x = ord('q')
-             #print ""
-             #system("reset") 
         x = 0
         while x != ord('q'):
            
              system("reset")
-             #x = screen.getch()
+           
              screen = curses.initscr()
              screen.clear()
              screen.border(0)
-             #screen.start_color()
-             #curses.init_pair(1,curses.COLOR_RED, curses.COLOR_WHITE)
+             curses.start_color()
+             curses.init_pair(1,curses.COLOR_RED, curses.COLOR_WHITE)
              #screen.keypad(1)
              pos = 2
 
@@ -72,10 +69,11 @@ def main():
              screen.refresh()
 
              #x = 3
-             screen.addstr(1,2, "ANDROID-DEBIAN USB TETHER V0.1", curses.A_STANDOUT)
+             screen.addstr(1,2, "adb-tether v0.2", curses.A_STANDOUT)
              
-             screen.addstr(2,2, "Please fork on github.com/aerth/android-debian-usb-tether", curses.A_BOLD)         
+             screen.addstr(2,2, "Please fork on github.com/aerth/adb-tether", curses.A_BOLD)         
              screen.addstr(4,2, "Grab Tetherbot from http://graha.ms/androidproxy/Tetherbot.apk", curses.A_BOLD)    
+             screen.addstr(5,60, "THANKS GRAHA.MS!")    
              
              
                   
