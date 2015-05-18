@@ -44,14 +44,14 @@ sudo cp adb-tether /usr/local/bin/
 
 This script was created to make it a little easier to connect to a server via SSH using the USB tethered net!
 
-![Android Debian USB Tether in action!]( ./img/Screenshot.png
- "Android Debian USB Tether in action!")
+![adb-tether in action!]( ./img/Screenshot.png
+ "ADB-TETHER in action!")
 
 Big thanks to http://graha.ms/androidproxy/
 
 #ADB-TETHER LICENSE
 ```
-android-tether is released under the MIT License!
+adb-tether is released under the MIT License!
 You may "use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software" as long as your also publish this LICENSE file with it!
 
@@ -66,7 +66,10 @@ Thanks for using Free Libre Open Source Software!
 
 The MIT License (MIT)
 
-Copyright (c) 2015 aerth@isupon.us
+Copyright (c) ADB-TETHER TEAM
+
+aerth@isupon.us
+yourname@here
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

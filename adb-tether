@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # MIT LICENSE
-# AUTHOR: aerth@isupon.us
+# ADB-TETHER TEAM
 
 from os import system
 import curses, sys, traceback, os
@@ -97,7 +97,7 @@ def main():
              screen.addstr(18, 2, "b - SCP Get (with id_rsa)")
              screen.addstr(24, 2, "Thanks for using Free / Libre Open Source Software!", curses.A_BOLD)
              screen.addstr(26, 20, "MIT LICENSE", curses.color_pair(3))
-             screen.addstr(27, 20, "Copyright 2015 aerth:earthbot", curses.color_pair(3))
+             screen.addstr(27, 20, "Copyright 2015 ADB-TETHER TEAM", curses.color_pair(3))
              screen.addstr(26, 50, "PULL REQUESTS ", curses.color_pair(3))
              screen.addstr(27, 50, " ARE WELCOME", curses.color_pair(3))
              
