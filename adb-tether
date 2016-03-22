@@ -5,37 +5,40 @@
 
 from os import system
 import curses, sys, traceback, os
-    
+
+MIN_SCR_W = 80          # Minimum screen width
+MIN_SCR_H = 25          # Minimum screen height
+
 def main():
-    try:   
+    try:
         def get_param(prompt_string):
              screen.clear()
              screen.border(0)
              screen.addstr(2, 2, prompt_string)
              screen.refresh()
-             screen.addstr(1,2, "adb-tether v0.2", curses.A_STANDOUT)
+             screen.addstr(1,2, "adb-tether v0.3", curses.A_STANDOUT)
              input = screen.getstr(10, 10, 600)
              return input
-        
-        
+
+
         def get_params(prompt_string,second_string):
              screen.clear()
              screen.border(0)
              screen.addstr(2, 10, prompt_string)
              screen.addstr(4, 10, second_string)
              screen.refresh()
-             screen.addstr(1,2, "adb-tether v0.2", curses.A_STANDOUT)
+             screen.addstr(1,2, "adb-tether v0.3", curses.A_STANDOUT)
              input = screen.getstr(10, 10, 60)
              return input
-        
-        
+
+
         def execute_cmd(cmd_string):
              system("reset")
              a = system( cmd_string )
-             
+
              if a == 0:
                   print "Command executed correctly"
-                  
+
              else:
                   print "Command terminated with error"
              raw_input("Press enter")
@@ -46,18 +49,25 @@ def main():
              print ""
              if a == 0:
                   print "Command executed correctly"
-                  
+
              else:
                   print "Command terminated with error"
              raw_input("Press enter")
         x = 0
         while x != ord('q'):
-           
-             system("reset")
-           
+
+             #system("reset")
+
              screen = curses.initscr()
              SCREEN_HEIGHT, SCREEN_WIDTH = screen.getmaxyx()
-             screen.clear()
+
+             if (SCREEN_HEIGHT < MIN_SCR_H) or (SCREEN_WIDTH < MIN_SCR_W):
+               os.system('reset')
+               sys.exit("\nSorry, the screen must be at least %dx%d!\n\n" % (MIN_SCR_W, MIN_SCR_H))
+
+             #sys.exit("Done")
+             #os.system('reset')
+             #screen.clear()
              screen.border(0)
              curses.start_color()
              curses.init_pair(1,curses.COLOR_RED, curses.COLOR_BLACK)
@@ -70,25 +80,25 @@ def main():
              curses.cbreak()
              curses.noecho()
              screen.keypad(0)
-                               
+
              screen.refresh()
-             screen.addstr(1,2, "adb-tether v0.2", curses.color_pair(3))
-             
-             screen.addstr(2,2, "Please fork on github.com/aerth/adb-tether", curses.A_BOLD)         
-             screen.addstr(4,2, "Grab Tetherbot from http://graha.ms/androidproxy/Tetherbot.apk", curses.A_BOLD)    
-             screen.addstr(6,60, "THANKS GRAHA.MS!", curses.color_pair(1))    
-             
+             screen.addstr(1,2, "adb-tether v0.3", curses.color_pair(3))
+
+             screen.addstr(2,2, "Update at https://github.com/aerth/adb-tether", curses.A_BOLD)
+             screen.addstr(4,2, "Included is requirement Tetherbot.apk (from http://graha.ms/androidproxy/Tetherbot.apk)", curses.A_BOLD)
+             screen.addstr(6,60, "THANKS GRAHA.MS!", curses.color_pair(1))
+
              screen.addstr(6, 2, "1 - Install Dependencies [using sudo apt-get]")
              screen.addstr(7, 2, "    >> android-tools-adb android-tools-fastboot ")
              screen.addstr(8,2, "    >> android-tools-utils gvfs-backends jmtpfs")
 
-             
+
              screen.addstr(10, 2, "2 - USB ADB START")
              screen.addstr(11, 2, "3 - USB ADB STATUS")
              screen.addstr(12, 2, "4 - KILL ADB SRV")
-             screen.addstr(13, 2, "5 - Connected Androids", curses.color_pair(2))             
+             screen.addstr(13, 2, "5 - Connected Androids", curses.color_pair(2))
              screen.addstr(14, 2, "6 - Connect Android via adb")
-             screen.addstr(15, 2, "7 - ENABLE USB TETHER (port 1080 SOCKS)", curses.color_pair(2))             
+             screen.addstr(15, 2, "7 - ENABLE USB TETHER (port 1080 SOCKS)", curses.color_pair(2))
 
              screen.addstr(16, 2, "8 - ENABLE SSH PROXY")
              screen.addstr(17, 2, "9 - SSH to Server")
@@ -96,27 +106,20 @@ def main():
              screen.addstr(19, 2, "a - SCP Push (with id_rsa)")
              screen.addstr(18, 2, "b - SCP Get (with id_rsa)")
              screen.addstr(24, 2, "Thanks for using Free / Libre Open Source Software!", curses.A_BOLD)
-             screen.addstr(26, 20, "MIT LICENSE", curses.color_pair(3))
-             screen.addstr(27, 20, "Copyright 2015 ADB-TETHER TEAM", curses.color_pair(3))
-             screen.addstr(26, 50, "PULL REQUESTS ", curses.color_pair(3))
-             screen.addstr(27, 50, " ARE WELCOME", curses.color_pair(3))
-             
-             
-             
              screen.keypad(1)
              screen.addstr(2, 50, "Press q or CTRL + C to Exit", curses.color_pair(4))
-             screen.addstr(30, 40, "", curses.color_pair(5))
+             screen.addstr(3, 40, "", curses.color_pair(5))
              s = curses.newwin(1, 15, 2, 8)
              s.box()
-             
-        
+
+
              x = screen.getch()
-             
+
              if x == ord('1'):
                   confirm = get_params("Downloading and installing dependencies!","Are you sure? \n        type yes")
                   curses.endwin()
                   if confirm == "yes":
-                       execute_cmd("sudo apt-get install android-tools-adb android-tools-fastboot android-tools-utils gvfs-backends jmtpfs")                   
+                       execute_cmd("sudo apt-get install android-tools-adb android-tools-fastboot android-tools-utils gvfs-backends jmtpfs")
 
              if x == ord('2'):
                   curses.endwin()
@@ -124,26 +127,26 @@ def main():
                   execute_cmd("echo Now connect your android via USB. Make sure its in debugging mode. Run command #5 to see if it is properly connected.")
              if x == ord('3'):
                   curses.endwin()
-                  execute_cmd("adb get-state")  
+                  execute_cmd("adb get-state")
              if x == ord('4'):
                   iface = get_param("are you sure? stopping adb server!")
                   curses.endwin()
                   if confirm == "yes":
-                        execute_cmd("adb kill-server")      
+                        execute_cmd("adb kill-server")
              if x == ord('5'):
                   curses.endwin()
-                  execute_cmd("adb devices -l")  
+                  execute_cmd("adb devices -l")
              if x == ord('6'):
                   curses.endwin()
                   execute_cmd("adb shell su")
              if x == ord('7'):
                   user = get_param("At this point you must pick up your phone open Tetherbot app and Start Socks.")
                   curses.endwin()
-                  execute_cmd("adb forward tcp:1080 tcp:1080")      
+                  execute_cmd("adb forward tcp:1080 tcp:1080")
              if x == ord('8'):
                   user = get_param("At this point you must pick up your phone open Tetherbot app and Start Tunnel to your favorite server.")
                   curses.endwin()
-                
+
                   execute_cmd("adb forward tcp:4444 localabstract:Tunnel")
              if x == ord('9'):
                   curses.endwin()
@@ -152,18 +155,18 @@ def main():
              if x == ord('0'):
                   user = get_param("What username to ssh?")
                   curses.endwin()
-                  execute_cmd("ssh -p 4444 " + user + "@localhost -v -i ~/.ssh/id_rsa")          
+                  execute_cmd("ssh -p 4444 " + user + "@localhost -v -i ~/.ssh/id_rsa")
              if x == ord('a'):
                   user = get_param("What username to ssh?")
                   files = get_param("What files to push?")
                   curses.endwin()
-                  execute_cmd("scp -v -i ~/.ssh/id_rsa -P 4444 " + files + " " + user + "@localhost:~/ ")          
+                  execute_cmd("scp -v -i ~/.ssh/id_rsa -P 4444 " + files + " " + user + "@localhost:~/ ")
 
              if x == ord('b'):
                   user = get_param("What username to ssh?")
                   files = get_param("What files to get?")
                   curses.endwin()
-                  execute_cmd("scp -v -i ~/.ssh/id_rsa -P 4444 " + user + "@localhost:~/" + files + " . ")          
+                  execute_cmd("scp -v -i ~/.ssh/id_rsa -P 4444 " + user + "@localhost:~/" + files + " . ")
 
 
         curses.endwin()
@@ -172,8 +175,7 @@ def main():
     except Exception:
         traceback.print_exc(file=sys.stdout)
     os.system('reset')
-   
+
 
 if __name__ == "__main__":
     main()
-
